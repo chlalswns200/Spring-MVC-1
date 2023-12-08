@@ -22,8 +22,8 @@ public class RequestBodyJsonController {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @PostMapping("/request-body-string-v1")
-    public void requestBodyStringV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @PostMapping("/request-json-string-v1")
+    public void requestJsonStringV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ServletInputStream inputStream = request.getInputStream();
         String messageBody = copyToString(inputStream, StandardCharsets.UTF_8);
 
@@ -33,8 +33,8 @@ public class RequestBodyJsonController {
     }
 
     @ResponseBody
-    @PostMapping("/request-body-string-v2")
-    public String requestBodyStringV2(@RequestBody String messageBody) throws IOException {
+    @PostMapping("/request-json-string-v2")
+    public String requestJsonStringV2(@RequestBody String messageBody) throws IOException {
 
         log.info("messageBody={}", messageBody);
         HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
@@ -44,23 +44,23 @@ public class RequestBodyJsonController {
     }
 
     @ResponseBody
-    @PostMapping("/request-body-string-v3")
-    public String requestBodyStringV3(@RequestBody HelloData helloData) {
+    @PostMapping("/request-json-string-v3")
+    public String requestJsonStringV3(@RequestBody HelloData helloData) {
         log.info("helloData={}", helloData.getUsername(),helloData.getAge());
         return "ok";
     }
 
     @ResponseBody
-    @PostMapping("/request-body-string-v4")
-    public String requestBodyStringV4(HttpEntity<HelloData> helloData) {
+    @PostMapping("/request-json-string-v4")
+    public String requestJsonStringV4(HttpEntity<HelloData> helloData) {
         HelloData data = helloData.getBody();
         log.info("helloData={}", data.getUsername(),data.getAge());
         return "ok";
     }
 
     @ResponseBody
-    @PostMapping("/request-body-string-v5")
-    public HelloData requestBodyStringV5(@RequestBody HelloData helloData) {
+    @PostMapping("/request-json-string-v5")
+    public HelloData requestJsonStringV5(@RequestBody HelloData helloData) {
         log.info("helloData={}", helloData.getUsername(),helloData.getAge());
         return helloData;
     }
